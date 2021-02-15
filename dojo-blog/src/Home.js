@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
+import useFetch from "./useFetch"
 // parent component
 const Home = () => {
   // pass blogs data to Bloglist component
-  const [blogs, setBlogs] = useState(null)
-  const [isPending, setIsPending] = useState(true)
+  const { data: blogs, isPending, error } = useFetch('http://localhost:8000/blogs')
 
   // const [name, setName] = useState('mario')
   const title = "All blogs !"
@@ -15,33 +14,12 @@ const Home = () => {
   //   setBlogs(newBlogs)
   // }
 
-  useEffect(() => {
-    setTimeout(() => {
-      fetch('http://localhost:8000/blogs')
-        .then(res => {
-          console.log(res)
-          if (!res.ok) {
-            throw Error('could not fetch the data for that  resource')
-          }
-          return res.json()
-        })
-        .then(data => {
-          console.log(data)
-          setBlogs(data)
-          setIsPending(false)
-        })
-        .catch(err => {
-          console.log(err.message)
-        })
-    }, 1000)
-  }, [])
-
   return (
     <div className="home">
       {/* child component 
     create a proprity blogs to send to child component
     */}
-
+      {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}
       {blogs && <BlogList blogs={blogs} Titre={title} />}
 
