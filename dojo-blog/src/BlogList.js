@@ -1,4 +1,5 @@
-const BlogList = ({ blogs, Titre, handleDelete }) => {
+const BlogList = ({ blogs, Titre }) => {
+  // destructuring. take  proprity from  parent component
 
   return (
     <div className="blog-list">
@@ -7,7 +8,7 @@ const BlogList = ({ blogs, Titre, handleDelete }) => {
         <div className="blog-preview" key={blog.id}>
           <h2>{blog.title}</h2>
           <p>Written by {blog.author}</p>
-          <button onClick={() => handleDelete(blog.id)}>Delete blog </button>
+          {/* <button onClick={() => handleDelete(blog.id)}>Delete blog </button> */}
         </div>
       ))}
     </div>
